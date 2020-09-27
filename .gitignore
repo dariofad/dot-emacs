@@ -1,0 +1,81 @@
+# -*- mode: gitignore; -*-
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+/auto-save-list/
+tramp
+.\#*
+session.*
+
+# Org-mode
+.org-id-locations
+*_archive
+
+# Flymake-mode
+*_flymake.*
+
+# Eshell files
+/eshell/history
+/eshell/lastdir
+
+# Elpa packages
+/elpa/*
+
+# Reftex files
+*.rel
+
+# AUCTeX auto folder
+/auto/*
+
+# Cask packages
+.cask/
+dist/
+
+# Flycheck
+flycheck_*.el
+
+# Server auth directory
+/server/
+
+# Projectiles files
+.projectile
+
+# Directory configuration
+.dir-locals.el
+
+# Network security
+/network-security.data
+
+# Tramp
+tramp
+
+# Elpa
+elpa/archives/
+elpa/
+
+# Ido
+ido\.last
+
+# Dired
+/image-dired/*
+
+# Url
+url/
+
+# Python environments
+\.python-environments/
+
+# Recentf
+recentf
+
+# Mc-lists
+.mc-lists.el
+
+# Elpy
+/elpy/
+
+# Eshell history and lastdir
+eshell/history
+eshell/lastdir
