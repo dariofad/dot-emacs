@@ -1,7 +1,7 @@
 # dot-emacs
 This repo holds my dot-emacs files.
 It's not an exact copy of my real `.emacs.d/` content, but rather a minimal version.
-I decided to uploat it as it could be useful to anybody that wants to use Emacs with EXWM at its main driver, 
+I decided to uploat it as it could be useful to anybody that wants to use Emacs with EXWM as its main driver, 
 hoping it wil save the new users a little time.
 
 ## Perequisites
