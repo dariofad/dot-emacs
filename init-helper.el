@@ -2,13 +2,16 @@
 (load-file "~/.emacs.d/my-stuff/my-functions.el")
 (load-file "~/.emacs.d/my-stuff/common-packages.el")
 
-;; programming languages packages
+;; programming languages
 (load-file "~/.emacs.d/my-stuff/proglang-packages.el")
-(load-file "~/.emacs.d/my-stuff/haskell-packages.el")
 (load-file "~/.emacs.d/my-stuff/python-packages.el")
+(load-file "~/.emacs.d/my-stuff/golang-packages.el")
+(load-file "~/.emacs.d/my-stuff/rust-packages.el")
 (load-file "~/.emacs.d/my-stuff/latex-packages.el")
+(load-file "~/.emacs.d/my-stuff/org-mode-packages.el")
 
-;; terminals and other little things
+
+;; terminals minor adjustments
 (load-file "~/.emacs.d/my-stuff/terminals.el")
 (load-file "~/.emacs.d/my-stuff/minor-tips.el")
 

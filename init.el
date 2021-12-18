@@ -1,73 +1,84 @@
 (message "Bootstrapping emacs")
 
-;; reading hostname
+;; reading host-name
 (setq host-name
       (substring 
        (shell-command-to-string "hostname") 
        0 -1))
 
-;; will be used to check whether Emacs was already started
-(setq t_checker (boundp' EXWM_REFRPACKAGE))
+;; set t_checker to 1 if EMACS_BOOTED is defined, nil otherwise
+(setq t_checker (boundp' EMACS_BOOTED))
 
-;; packages global configuration (executed only once)
-(if (eq nil t_checker) 
+;; (executed only at emacs startup)
+(if (eq nil t_checker)
+      ;; this program installs use-package if it's not
+      ;; available. use-package is used to configure and install
+      ;; everything else
     (progn
-      (require 'package)
-      ;; add melpa stable
-      (eval-when-compile
-	(add-to-list 'package-archives
-		     '("melpa-stable" . "https://stable.melpa.org/packages/"))
-	(add-to-list 'package-archives
-		     '("melpa" . "https://melpa.org/packages/"))      
-	)
-      ;; initialize packages
       (package-initialize)
+
+      ;; use ahead-of-time native compilation if available
+      (setq package-native-compile t)
+
+      (add-to-list 'package-archives
+		   '("melpa-stable" . "https://stable.melpa.org/packages/"))
+      (add-to-list 'package-archives
+		   '("melpa" . "https://melpa.org/packages/"))
+
+      (unless (package-installed-p 'use-package)
+	(package-refresh-contents)
+	(package-install 'use-package))
+      
+      (setq use-package-verbose t)      
       )
   )
 
-(setq use-package-verbose t)
+;; set successful emacs bootstrap
+(setq EMACS_BOOTED 1)   
 
-;; EXWM bootstrap - window manager section (executed only once)
-;; (NOTE1: this config is useful when the window manager is not the same for all hosts, based on the selected XXX.desktop entry selected at login the right WM is loaded properly)
-;; (NOTE2: at the moment no Emacs server is used, this could be a little annoying when emacs hangs)
-(if (or (string= host-name "bukamon") (string= host-name "tentomon") (string= host-name "greymon"))
-    (if (eq nil t_checker)
-	(progn
-	  ;; The window manager (EXWM) is complemented with by a list of gnome utilities (provided by the gnome-flashback package).
-	  ;; Also remind to disable gnome hotkeys (we will no longer need them).
-	  ;; The gnome-flashback packet should be installed using apt, and then the repository exwm-gnome-flashback should be cloned and installed.
-	  (use-package exwm
-	    :ensure t
-	    :commands (ace-window)
-	    :config
-	    (require 'exwm-config)
-	    (exwm-config-default)
-	    )
-	  ;; RandR multi-monitor support some hosts (rotation can also be managed with by gnome-control-center, if you have issues you can also use nvidia-settings to manually generate and merge new xorg config file)
-	  ;; (here we only tell exwm there are two monitors that need to be used)
-	  (if (or (string= host-name "greymon"))
-	      (progn
-	  	(require 'exwm-randr)
-	  	(setq exwm-randr-workspace-output-plist
-	  	      '(0 "HDMI-1" 1 "HDMI-2"))
-	  	(add-hook 'exwm-randr-screen-change-hook
-	  		  (lambda ()
-	  		    (start-process-shell-command
-	  		     "xrandr" nil "xrandr --output VGA-1 --off --output HDMI-1 --primary --mode 2560x1440 --pos 0x0 --rotate normal --output HDMI-2 --mode 2560x1440 --pos 2560x0 --rotate left")))
-	  	(exwm-randr-enable)
-	  	)  )
-	  ;; enable exwm
-	  (exwm-enable)
-	  ;; load other packages useful when exwm is active
-	  (load-file "~/.emacs.d/my-stuff/exwm-config-and-keybindings.el")
-	  ))
-  ()
-  )
-
-;; set successful exwm bootstrap
-(setq EXWM_REFRPACKAGE 1)   
-
-;; WM setup done, now loading all other packages
+;; base setup done, now switching to a support loader
 (load-file "~/.emacs.d/init-helper.el")
 
-(setq inhibit-startup-echo-area-message "Startup complete")
+(setq inhibit-startup-echo-area-message "Startup finished")
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(add-hook 'cmake-mode-hook t)
+ '(auth-source-save-behavior nil)
+ '(company-show-quick-access t nil nil "Customized with use-package company")
+ '(custom-enabled-themes '(tango-dark))
+ '(exwm-systemtray-height 30)
+ '(package-selected-packages
+   '(rust-mode lsp-pyright lsp-treemacs lsp-ui lsp-mode envrc go-mode go-mode-hook rotate counsel-projectile yasnippet direnv flycheck which-key visual-regexp treemacs emacs-rotate ivy-posframe company-reftex latex-extra company-math company-auctex latex tex-site multiple-cursors jedi company-quickhelp company-box company-jedy company-jedi anaconda free-keys counsel ace-link exwm xelb use-package smex ido-vertical-mode hindent haskell-mode expand-region company ace-window))
+ '(safe-local-variable-values
+   '((TeX-master . main\.tex)
+     (reftex-default-bibliography . "../../bib/biblio.bib")
+     (reftex-default-bibliography . "../../../../bib/biblio.bib")
+     (reftex-default-bibliography . "../../../bib/biblio.bib")
+     (reftex-default-bibliography . "../../biblio.bib")
+     (reftex-default-bibliography . "./biblio.bib")
+     (reftex-default-bibliography . "../biblio.bib")
+     (reftex-default-bibliography . "../../bibliof.bib")
+     (reftex-default-bibliography . "bibliof.bib")
+     (reftex-default-bibliography . "../bibliof.bib")
+     (reftex-default-bibliography . "biblio.bib")
+     (reftex-default-bibliography . "../bib/biblio.bib")
+     (reftex-default-bibliography . "./bib/biblio.bib")))
+ '(tramp-default-method "scp")
+ '(tramp-encoding-shell "/bin/bash"))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(aw-leading-char-face ((t (:foreground "deep sky blue" :bold t :height 3.0))))
+ '(company-tooltip ((t (:background "black" :foreground "white"))))
+ '(company-tooltip-common ((t (:hinerit))))
+ '(company-tooltip-common-selection ((t (:hinerit))))
+ '(company-tooltip-scrollbar-thumb ((t (:background "white"))))
+ '(company-tooltip-scrollbar-track ((t (:background "yellow"))))
+ '(company-tooltip-selection ((t (:backgroud "red" :foreground "red")))))
+(put 'upcase-region 'disabled nil)

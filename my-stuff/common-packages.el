@@ -1,3 +1,12 @@
+;; rotations
+(use-package rotate
+  :ensure t
+  :config
+  ;; global window and layout rotations (also working for X application windows)
+  (global-set-key (kbd "s-b") 'rotate-window) ;; blend
+  (global-set-key (kbd "s-d") 'rotate-layout) ;; dislocate
+  )
+
 ;; ace-window (window movement)
 (use-package ace-window
   :ensure t
@@ -19,7 +28,7 @@
 	(?? aw-show-dispatch-help))
   "List of actions for `aw-dispatch-default'."))
 
-;; blue bigs letters to mark windows (only working insede text buffers)
+;; blue bigs letters to mark windows (only working in textual buffers)
 (custom-set-faces
  '(aw-leading-char-face ((t (:foreground "deep sky blue" :bold t :height 3.0)))))
 
@@ -31,10 +40,10 @@
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
   (setq ivy-count-format "(%d/%d) ")
-  ;; suggest to counsel-find-file the file at point as first candidate 
+  ;; suggest to counsel-find-file the file under cursor as first candidate 
   (setq counsel-find-file-at-point t))
 
-;; theme set - avoiding some coloring hues
+;; theme set - avoid some coloring hues
 (use-package dichromacy-theme
   :defer t
   :init (load-theme 'dichromacy t))
@@ -43,7 +52,7 @@
 (use-package free-keys
   :ensure t)
 
-;; avy for fast jumps
+;; avy for fast jumps to text of all the displayed windows
 (use-package avy
   :ensure t)
 
@@ -63,12 +72,13 @@
   :config
   (setq tramp-default-method "ssh")
   (setq tramp-chunksize 10000)
-  ;; avoid tramp backing up file
+  ;; avoid tramp backing up file (avoid accidental file exposure)
   (add-to-list 'backup-directory-alist
 	       (cons tramp-file-name-regexp nil))
   )
 
-;; useful to refactor quickly
+
+;; useful to edit line tail and head, plus with keyboard macros
 (use-package multiple-cursors         
   :ensure t                           
   :bind                               
@@ -78,7 +88,8 @@
   ("C-c C-<" . mc/mark-all-like-this)
   )
 
-;; useful to interactively build a regexp, also permits to replace matches
+
+;; useful to interactively build a regexp, also allows to replace matches
 (use-package visual-regexp
   :ensure t
   )

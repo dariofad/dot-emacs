@@ -1,4 +1,4 @@
-;; set Emacs default shell
+;; set emacs default interactive shell
 (setq explicit-shell-file-name "/bin/bash")
 
 ;; shell prompt regexp
@@ -7,7 +7,7 @@
 ;; disable company mode in shell mode and eshell mode
 (add-hook 'shell-mode-hook (lambda () (company-mode -1)) 'append)
 
-;; set comint faces for shell mode (colors)
+;; set comint faces for shell mode (color highlight)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
 
@@ -34,7 +34,7 @@
               (add-to-list 'eshell-visual-commands "tail")
               (add-to-list 'eshell-visual-commands "top")
 	      (add-to-list 'eshell-visual-commands "htop")))
-  ;; use tramp to connect to host (useful to make sudo session persistent)
+  ;; use tramp to connect to the current machine (useful to make sudo persistent)
   (add-to-list 'eshell-modules-list 'eshell-tramp)
   (add-hook 'eshell-mode-hook (lambda () (company-mode -1)) 'appbend)
   )

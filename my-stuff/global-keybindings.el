@@ -1,6 +1,18 @@
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+;; window resizing
+;; horizontal
+(global-set-key (kbd "s-[") (lambda() (interactive)(shrink-window-horizontally 3)))
+(global-set-key (kbd "s-]") (lambda() (interactive)(enlarge-window-horizontally 3)))
+;; vertical
+(global-set-key (kbd "s-{") (lambda() (interactive)(shrink-window 2)))
+(global-set-key (kbd "s-}") (lambda() (interactive)(enlarge-window 2)))
+
+;; more convenient window switching
+(global-set-key (kbd "M-o") 'ace-window)
+
+;; IVY DISCLAIMER - (NOT ALL OF THEM ARE WORKING, IT DEPENDS ON WHAT IS CURRENTLY INSTALLED ON THE MACHINE)
 ;; ivy-based interface to standard commands
 (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
 (global-set-key (kbd "C-s") 'swiper-isearch)
@@ -20,9 +32,13 @@
 (global-set-key (kbd "C-c g") 'counsel-git)
 (global-set-key (kbd "C-c j") 'counsel-git-grep)
 (global-set-key (kbd "C-c L") 'counsel-git-log)
+;; (global-set-key (kbd "C-c k") 'counsel-rg)
 (global-set-key (kbd "C-c m") 'counsel-linux-app)
+;; (global-set-key (kbd "C-c n") 'counsel-fzf)
 (global-set-key (kbd "C-x l") 'counsel-locate)
 (global-set-key (kbd "C-c J") 'counsel-file-jump)
+;; (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+;; (global-set-key (kbd "C-c w") 'counsel-wmctrl)
 
 ;; ivy-resume and other commands
 (global-set-key (kbd "C-c C-r") 'ivy-resume)

@@ -14,15 +14,18 @@
              '("*Help*" display-buffer-same-window))
 
 ;; turn on absolute line numbers
+;; (setq display-line-numbers t)
 (global-linum-mode t)
+;; (global-display-line-numbers-mode)   
 
 ;; enable camel-case inner-to-word micro-movement
 (global-subword-mode 1)
 
 ;; display basic info in modeline
-(display-time)
-(display-battery-mode)
+(display-battery-mode 1)
 (setq display-time-default-load-average nil)
+(setq display-time-24hr-format 1)
+(display-time-mode 1)
 
 ;; disable company mode for remote buffers
 (add-hook 'eval-after-load 'dariofad/disable-company-mode-for-remote-buffers)
@@ -30,5 +33,9 @@
 ;; cliboard adjustments
 (setq select-enable-clipboard t)
 (setq select-enable-primary t)
-;; useful to copy and yank text with X applications
 (setq save-interprogram-paste-before-kill t)
+
+;; disable menu bar, scrollbar and toolbar
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
