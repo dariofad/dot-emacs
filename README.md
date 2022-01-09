@@ -13,10 +13,10 @@ interact simultaneously with keyboard and mouse.
 
 I rarely change my Emacs configuration while working. Most of the
 changes are made on the days off. So I prefer having a minimal and
-easy to use configuration, introducing a new feature only if its worth
-(I've used EXWM as my main driver for roughly 18 months, the daily
-experience was awesome, but off an on it required to stop my activies
-and this made me feel a bit unproductive).
+easy to use configuration, introducing a new feature only when is
+really needed. I used to be an EXWM user. The daily experience was
+awesome, but from time to time it required to stop my activies, making
+me feel a bit unproductive.
 
 ### Usage
 
@@ -24,29 +24,27 @@ On a typical day, I start the Emacs daemon right after boot typing
 `start-emacs` in the terminal (see
 [here](#bash-functions-and-aliases)). When I want to edit a file or a
 directory in a new Emacs frame, I simply type `ef $(PATH_NAME)` to
-call _emacsclient_ (`ec` when I want to stay in the terminal). In case
+call _emacsclient_ (`et` when I want to stay in the terminal). In case
 I need to update my configuration there are two alternatives:
 + if it's just something I want to tweak right on the spot, I open a
   new buffer, type some Elisp and then call `eval-region`. This are
   modifications that do not persist with a restart of the daemon;
 + if it's something more complex, I edit and save the dotfiles, close
-  the client, and finally restart the daemon running on the
-  `kill-emacs; start-emacs` commands.
+  the client, and then restart the daemon running on the `kill-emacs;
+  start-emacs` commands.
   
 ### Bash functions and aliases
 
 ```bash
-# start Emacs daemon
+# emacsclient functions
+et () { emacsclient -nw "$@"; }
+ef () { emacsclient -c "$@" & disown; }
+
+# start emacs daemon
 alias start-emacs='emacs --daemon'
 
-# kill Emacs daemon
+# kill emacs alias
 alias kill-emacs='emacsclient -e "(kill-emacs)"'
-
-# open Emacs in terminal
-et () { emacsclient -nw "$@"; }
-
-# open a new Emacs frame
-ef () { emacsclient -c "$@" & }
 ```
   
 ## Misc
@@ -58,9 +56,10 @@ remarks that might be useful.
 + Why using a daemon and not separate Emacs instances? Packages are
   loaded only once, subsequent frame openings occur instantaneously.
 
-+ Why `use-package`? It easy to use, and it permits to keep the files
-  tidy and readable. There are powerful alternatives as `straight.el`,
-  but I don't feel the need to use a package manager yet.
++ Why `use-package`? It easy to use, and it permits to keep the
+  dotfiles tidy and readable. There are powerful alternatives as
+  `straight.el`, but I don't feel the need to use a package manager
+  yet.
 
 + Why the first boot is so slow? The first time `init.el` is loaded,
   all the packages are downloaded, compiled and loaded. 
@@ -83,19 +82,19 @@ remarks that might be useful.
   perform native compilation when installing a package.
   
 + Only Python, Go and Rust? These are the languages I use when I start
-  a project from scratch. With huge codebases (as the AOSP), I use
+  a project from scratch. With huge codebases (like the AOSP), I use
   Emacs to edit and search for files, but I don't use it to perform
   any indexing. On the other hand, when projects are too small, I just
   rely on the built-in capabilities to highlight the syntax. Also
   notice that I tend to rely only on lsp basic functions. In general,
   I think that language-specific command line tools are more
-  convenient when there is the need to trace, inspect or debug a
-  project (and they can be neatly arranged into Makefiles).
+  convenient when there is the need to test, debug and profile (and
+  they can be neatly arranged into Makefile recipes).
 
 + Some commands/keybindings do not work. Yes, there are Emacs packages
   that rely on binaries that need to be available on the host. In
   these cases, I just make sure the package or function does not cause
-  installation errors. 
+  installation errors (on a fresh host environment). 
 
 + Any updates? I plan to update this public version of the dotfiles
   from time to time. I'm always testing new packages, but I keep them
