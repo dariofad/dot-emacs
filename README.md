@@ -22,7 +22,7 @@ TLDR:
   - [Go](#go)
   - [Python](#python)
   - [Rust](#rust)
-  - [Javascript and Typescript](javascript-and-typescript)
+  - [Javascript and Typescript](#javascript-and-typescript)
   - [LaTeX](#latex)
 
 ## Rationale
