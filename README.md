@@ -2,7 +2,7 @@
 
 My simple and minimal `.emacs.d` files. Target: `Debian/Ubuntu`.
 
-TLDR:
+TLDR
 
 + only basic knowledge of Elisp required
 + `use-package` macros and only melpa packages (no external
