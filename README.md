@@ -36,10 +36,10 @@ interact simultaneously with keyboard and mouse.
 
 I rarely change my Emacs configuration while working. Most of the
 changes are made on the days off. So I prefer having a minimal and
-easy to use configuration, introducing a new feature only if its worth
-(I've used EXWM as my main driver for roughly 18 months, the daily
-experience was awesome, but off an on it required to stop my activies
-and this made me feel a bit unproductive).
+easy to use configuration, introducing a new feature only when is
+really needed. I used to be an EXWM user. The daily experience was
+awesome, but from time to time it required to stop my activies, making
+me feel a bit unproductive.
 
 ### Usage
 
@@ -48,10 +48,10 @@ On a typical day, I start the Emacs daemon right after boot typing
 [here](#bash-functions-and-aliases)). When I want to edit a file or a
 directory, I simply type:
 
-+ `et ${PATH_NAME}` to open the file with Emacs in the current
++ `et ${PATH}` to open the file with Emacs in the current
   terminal.
-+ `ef ${PATH_NAME}` to open the file in a new Emacs frame;
-+ `efs ${PATH_NAME}` to open the file in a new Emacs frame and closing
++ `ef ${PATH}` to open the file in a new Emacs frame;
++ `efs ${PATH}` to open the file in a new Emacs frame and closing
   the terminal window;
 
 When I need to update my configuration there are two alternatives:
@@ -59,7 +59,7 @@ When I need to update my configuration there are two alternatives:
   new buffer, type some Elisp and then call `eval-region`. These are
   modifications that do not persist with a restart of the daemon
   (i.e., the server);
-+ if it's something more complex, I edit and save the dotfiles,and
++ if it's something more complex, I edit and save the dotfiles, and
    then restart the daemon running on the `kill-emacs; start-emacs`
    commands.
   
@@ -68,12 +68,6 @@ When I need to update my configuration there are two alternatives:
 Add the following to your `.bashrc`
 
 ```bash
-# start Emacs daemon
-alias start-emacs='emacs --daemon'
-
-# kill Emacs daemon
-alias kill-emacs='emacsclient -e "(kill-emacs)"'
-
 # open Emacs in terminal
 et () { emacsclient -nw "$@"; }
 
@@ -183,26 +177,8 @@ I actually don't use LSP to work with LaTeX, as
 [AUCTeX](https://www.gnu.org/software/auctex/) works smoothly (though
 `company` completion is not particularly responsive). When you work on
 a complex document split across many source files, you can use
-variables to set up the environment.
-
-Add the following to your main file (`main.tex`):
-```
-%%% Local Variables: 
-%%% mode: latex
-%%% TeX-master: t
-%%% reftex-default-bibliography: "./bibliography.bib"
-%%% End:
-```
-
-Add the following to all other files (excluding the bibliography):
-```
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: "main.tex"
-%%% reftex-default-bibliography: "./bibliography.bib"
-%%% End:
-```
-
+variables to set up the environment (see
+[here](https://www.gnu.org/software/auctex/manual/auctex.html#Multifile)).
 This will allow you to run `TeX-command-master` and `TeX-view` from
 any of the source files. Also, company will be able to fetch the bib
-entries.
+entries properly.
