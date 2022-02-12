@@ -9,12 +9,15 @@
 ;; set t_checker to 1 if EMACS_BOOTED is defined, nil otherwise
 (setq t_checker (boundp' EMACS_BOOTED))
 
-;; (executed only at emacs startup)
+;; the following is executed only at startup
 (if (eq nil t_checker)
-      ;; this program installs use-package if it's not
-      ;; available. use-package is used to configure and install
-      ;; everything else
     (progn
+      ;; this following program performs package initialization and
+      ;; installs use-package (if not available). use-package is used
+      ;; to configure and install all the other packages (no external
+      ;; dependencies)
+      
+      ;; init packages
       (package-initialize)
 
       ;; use ahead-of-time native compilation if available
@@ -25,6 +28,7 @@
       (add-to-list 'package-archives
 		   '("melpa" . "https://melpa.org/packages/"))
 
+      ;; install use-package if not available
       (unless (package-installed-p 'use-package)
 	(package-refresh-contents)
 	(package-install 'use-package))
@@ -33,14 +37,16 @@
       )
   )
 
-;; set successful emacs bootstrap
+;; vanilla emacs + use-package successfully bootstrapped
 (setq EMACS_BOOTED 1)   
 
-;; base setup done, now switching to a support loader
+;; switch to a init helper
 (load-file "~/.emacs.d/init-helper.el")
 
-(setq inhibit-startup-echo-area-message "Startup finished")
+(setq inhibit-startup-echo-area-message "Emacs boot terminated")
 
+
+;; IGNORE the following auto-generated content
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -52,7 +58,7 @@
  '(custom-enabled-themes '(tango-dark))
  '(exwm-systemtray-height 30)
  '(package-selected-packages
-   '(rust-mode lsp-pyright lsp-treemacs lsp-ui lsp-mode envrc go-mode go-mode-hook rotate counsel-projectile yasnippet direnv flycheck which-key visual-regexp treemacs emacs-rotate ivy-posframe company-reftex latex-extra company-math company-auctex latex tex-site multiple-cursors jedi company-quickhelp company-box company-jedy company-jedi anaconda free-keys counsel ace-link exwm xelb use-package smex ido-vertical-mode hindent haskell-mode expand-region company ace-window))
+   '(deno-fmt prettier-js web-mode json-mode rust-mode lsp-pyright lsp-treemacs lsp-ui lsp-mode envrc go-mode go-mode-hook rotate counsel-projectile yasnippet direnv flycheck which-key visual-regexp treemacs emacs-rotate ivy-posframe company-reftex latex-extra company-math company-auctex latex tex-site multiple-cursors jedi company-quickhelp company-box company-jedy company-jedi anaconda free-keys counsel ace-link exwm xelb use-package smex ido-vertical-mode hindent haskell-mode expand-region company ace-window))
  '(safe-local-variable-values
    '((TeX-master . main\.tex)
      (reftex-default-bibliography . "../../bib/biblio.bib")

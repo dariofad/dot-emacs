@@ -49,7 +49,6 @@
   (other-window 1))
 (global-set-key (kbd "C-x 3") 'ddsfv/Split-and-Follow-Vertically)
 
-
 ;; clear kill-ring
 (defun ddckr/Clear-Kill-Ring ()
   (interactive)
@@ -57,8 +56,7 @@
   (message "kill-ring cleared")
   )
 
-
-;; start redshift
+;; start redshift when available
 (defun ddsred/Start-REDshift ()
   (interactive)
   (call-process-shell-command "redshift -O 5000 & disown $(ps -aux | grep -i 'redshift'| grep -v 'grep' | awk '{ print $2 }')" nil 0)
@@ -100,7 +98,6 @@
   (call-process-shell-command "kill -9 $(ps -aux | grep -i 'zoom' | grep -v 'grep' | awk '{ print $2 }')" nil 0)
   )
 
-
 (defun ddsvpn/Start-VPN ()
   (interactive)
   (let ((default_vpn "unibgonly"))
@@ -117,7 +114,7 @@
 	)))
   )
 
-;; stop and disable a vpn with openvpn
+;; stop and disable a vpn connection with openvpn
 (defun ddkvpn/Kill-VPN ()
   (interactive)
   (let ((default_vpn "unibgonly"))
@@ -143,7 +140,7 @@
   (ddktea/Kill-microsoft-TEAms)
   )
 
-;; open the eshell in the directory associated with the current buffer
+;; open eshell in the directory associated with the current buffer
 (defun ddoeh/Open-Eshell-Here ()
   (interactive)
   (let* ((parent (if (buffer-file-name)
@@ -168,3 +165,10 @@
   (eshell-send-input)
   (delete-window))
 
+;; enable minor mode if finename matches regexp
+;; `binding` is a cons cell (regexp . minor-mode)
+(defun ddemm/Enable-Minor-Mode (new-binding)
+  (interactive)
+  (if (buffer-file-name)
+      (if (string-match (car new-binding) buffer-file-name)
+	  (funcall (cdr new-binding)))))

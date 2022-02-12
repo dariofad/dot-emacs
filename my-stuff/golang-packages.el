@@ -1,4 +1,4 @@
-;; setting the environment as expected (just stick to installation defaults)
+;; setting the environment (default options)
 ;; path
 (setenv "PATH"
   (concat
@@ -11,14 +11,14 @@
 (add-to-list 'exec-path "/usr/local/go/bin")
 (add-to-list 'exec-path "/home/dariofad/go/bin")
 
-;; adding go-mode
+;; client
 (use-package go-mode
   :ensure t)
 
 ;; from the official gopls documentation
-;; 1
+;; start lsp when in go mode
 (add-hook 'go-mode-hook #'lsp-deferred)
-;; 2
+;; format the file when the buffer is saved
 (defun lsp-go-install-save-hooks ()
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
   (add-hook 'before-save-hook #'lsp-organize-imports t t))

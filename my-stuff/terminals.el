@@ -15,6 +15,7 @@
 (add-to-list 'display-buffer-alist
              `(,(regexp-quote "*shell") display-buffer-same-window))
 
+;; eshell configuration
 (use-package eshell
   :ensure t
   :init
@@ -34,7 +35,7 @@
               (add-to-list 'eshell-visual-commands "tail")
               (add-to-list 'eshell-visual-commands "top")
 	      (add-to-list 'eshell-visual-commands "htop")))
-  ;; use tramp to connect to the current machine (useful to make sudo persistent)
+  ;; use tramp to connect to the host (useful to make sudo persistent)
   (add-to-list 'eshell-modules-list 'eshell-tramp)
   (add-hook 'eshell-mode-hook (lambda () (company-mode -1)) 'appbend)
   )

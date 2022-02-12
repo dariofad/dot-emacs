@@ -9,9 +9,10 @@
 (load-file "~/.emacs.d/my-stuff/rust-packages.el")
 (load-file "~/.emacs.d/my-stuff/latex-packages.el")
 (load-file "~/.emacs.d/my-stuff/org-mode-packages.el")
+(load-file "~/.emacs.d/my-stuff/json-packages.el")
+(load-file "~/.emacs.d/my-stuff/web-packages.el")
 
-
-;; terminals minor adjustments
+;; terminal and minor adjustments
 (load-file "~/.emacs.d/my-stuff/terminals.el")
 (load-file "~/.emacs.d/my-stuff/minor-tips.el")
 

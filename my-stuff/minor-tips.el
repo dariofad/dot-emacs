@@ -1,6 +1,6 @@
-;; removing bell sound and 
+;; disable bell sound
 (setq bell-volume 0)
-;; subtly flash the modeline when something is wrong
+;; disable subtly flash in the modeline when something is wrong
 (setq ring-bell-function
       (lambda ()
         (let ((orig-fg (face-foreground 'mode-line)))
@@ -14,11 +14,9 @@
              '("*Help*" display-buffer-same-window))
 
 ;; turn on absolute line numbers
-;; (setq display-line-numbers t)
 (global-linum-mode t)
-;; (global-display-line-numbers-mode)   
 
-;; enable camel-case inner-to-word micro-movement
+;; enable camel-case inner-to-word movement
 (global-subword-mode 1)
 
 ;; display basic info in modeline
@@ -30,7 +28,7 @@
 ;; disable company mode for remote buffers
 (add-hook 'eval-after-load 'dariofad/disable-company-mode-for-remote-buffers)
 
-;; cliboard adjustments
+;; cliboard
 (setq select-enable-clipboard t)
 (setq select-enable-primary t)
 (setq save-interprogram-paste-before-kill t)

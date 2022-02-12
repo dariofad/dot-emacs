@@ -2,6 +2,7 @@
   :ensure t
   )
 
+;; function templates
 (use-package yasnippet
   :ensure t
   )
@@ -51,14 +52,14 @@
     :init
     (company-quickhelp-mode)
     :config
+
     (setq company-quickhelp-delay 0.3)
-    ;; avoid being blinded when using a dark theme
+
+    ;; set darker colors
     (setq company-quickhelp-color-background "black")
     (setq company-quickhelp-color-foreground "yellow")
     (setq pos-tip-foreground-color "yellow")
     (setq pos-tip-background-color "black")
-
-    ;; avoid being blinded when using a dark theme
     (let ((bg (face-attribute 'default :background)))
       (custom-set-faces
        `(company-tooltip ((t (:background "black" :foreground "white"))))
@@ -71,7 +72,7 @@
     );; package company-quickhelp
   );; package company
 
-;; I use envrc to create dedicated per project environment settings
+;; I use envrc to create per project environment settings
 ;; NB: requires to install direnv at system level (dependency, if
 ;; missing is a problem)
 (use-package envrc
@@ -80,7 +81,7 @@
   (envrc-global-mode)
   )
 
-;; util useful to show lsp server actions
+;; function names from key prefix
 (use-package which-key
   :ensure t
   )
@@ -99,37 +100,44 @@
   (setq lsp-completion-show-detail t)
   (setq lsp-completion-show-kind t)
   
-  ;; util to ease the development when using lsp-mode
+  ;; enable the ui
   (use-package lsp-ui
     :ensure t
+    :after lsp
+    :hook (lsp-mode . lsp-ui-mode)
     :commands (lsp-ui-mode)
+    :config
+    (setq lsp-signature-auto-activate nil)
     )
 
   ;; tree-like workspace navigation (available but not enabled by
-  ;; default, I do not know if this is really useful yet)
+  ;; default)
   (use-package lsp-treemacs
-    ;; at the moment treemacs is not working, the problem is that the
-    ;; workspace is not correctly configured, and also that treemacs is
-    ;; not synchronized
     :ensure t
     :commands (lsp-treemacs-errors-list)
     :config (lsp-treemacs-sync-mode 1)
     )
 
-  ;; utility to activate lsp-server with the correct configuration
-  ;; (configuration comes from direnv's .envrc settings)
+  ;; utility to start lsp-server with the correct configuration
+  ;; (configuration can be customized using direnv (.envrc))
   (defun ddslsp/dariofad-Start-LSP-mode ()
     (interactive)
-    (direnv-update-environment)
     (lsp)
     (yas-global-mode)
     (which-key-mode 1)
-    ;(counsel-projectile-mode 1)
-    (lsp-signature-activate)
     )
+
+  ;; configure unstable clients (deno)
+  (setq lsp-clients-deno-enable-code-lens-implementations t)
+  (setq lsp-clients-deno-enable-code-lens-references t)
+  (setq lsp-clients-deno-enable-code-lens-references-all-functions t)
+  (setq lsp-clients-deno-enable-lint t)
+  (setq lsp-clients-deno-enable-unstable t)
+  (setq lsp-clients-deno-config "./tsconfig.json")
 
   );; package lsp-mode
 
+;; find symbols in workspace
 (use-package counsel-projectile
   :ensure t
   )

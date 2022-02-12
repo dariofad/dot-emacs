@@ -2,9 +2,16 @@
 (use-package rotate
   :ensure t
   :config
-  ;; global window and layout rotations (also working for X application windows)
-  (global-set-key (kbd "s-b") 'rotate-window) ;; blend
-  (global-set-key (kbd "s-d") 'rotate-layout) ;; dislocate
+
+  ;; function to rotate windows 
+  (defun ddrow/ROtate-Window ()
+    (interactive)
+    (rotate-window))
+
+  ;; function to rotate layout
+  (defun ddrol/ROtate-Layout ()
+    (interactive)
+    (rotate-layout))
   )
 
 ;; ace-window (window movement)
@@ -28,12 +35,12 @@
 	(?? aw-show-dispatch-help))
   "List of actions for `aw-dispatch-default'."))
 
-;; blue bigs letters to mark windows (only working in textual buffers)
+;; big blue letters to mark windows
 (custom-set-faces
  '(aw-leading-char-face ((t (:foreground "deep sky blue" :bold t :height 3.0)))))
 
 
-;; counsel from MELPA (it brings ivy and swiper as dependency)
+;; counsel (it brings ivy and swiper as dependency)
 (use-package counsel
   :ensure t
   :config
@@ -43,20 +50,20 @@
   ;; suggest to counsel-find-file the file under cursor as first candidate 
   (setq counsel-find-file-at-point t))
 
-;; theme set - avoid some coloring hues
+;; theme set
 (use-package dichromacy-theme
   :defer t
   :init (load-theme 'dichromacy t))
 
-;; prints a map of free keys
+;; to print a map of free keys
 (use-package free-keys
   :ensure t)
 
-;; avy for fast jumps to text of all the displayed windows
+;; avy for fast switching between buffers
 (use-package avy
   :ensure t)
 
-;; ace-link to jump quickly through links of documentation (and other formats...)
+;; ace-link to jump quickly through documentation links
 (use-package ace-link
   :ensure t
   :config
@@ -72,13 +79,12 @@
   :config
   (setq tramp-default-method "ssh")
   (setq tramp-chunksize 10000)
-  ;; avoid tramp backing up file (avoid accidental file exposure)
+  ;; no tramp backing up file (avoid accidental exposure of files)
   (add-to-list 'backup-directory-alist
 	       (cons tramp-file-name-regexp nil))
   )
 
-
-;; useful to edit line tail and head, plus with keyboard macros
+;; edit lines with repetitions quickly
 (use-package multiple-cursors         
   :ensure t                           
   :bind                               
@@ -88,8 +94,7 @@
   ("C-c C-<" . mc/mark-all-like-this)
   )
 
-
-;; useful to interactively build a regexp, also allows to replace matches
+;; to interactively build a regexp
 (use-package visual-regexp
   :ensure t
   )
