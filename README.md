@@ -161,6 +161,8 @@ Here are some notes to configure the language servers.
   
 ### Rust
 
++ Add standard library code to your toolchain with `rustup component
+  add rust-src`
 + Install `rust-analyzer` or `rls`
 + You can use `rustfmt` as formatter
 
