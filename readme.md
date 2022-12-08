@@ -21,14 +21,14 @@ TLDR:
   - [Bash commands](#bash-commands)
 + [Features](#features)
   - [Window Movement](#window-movement)
-  - [C/C++](#c-c++)
+  - [C/C++](#cpp)
   - [Go](#go)
   - [Javascript and Typescript](#javascript-and-typescript)
   - [Python](#python)
   - [Rust](#rust)
   - [LaTeX](#latex)
   - [Japanese Input](#japanese-input)
-+ [Q&A](#q&a)
++ [Q&A](#questions-and-answers)
 
 
 # Some notes about my setup
@@ -102,9 +102,10 @@ Take a look at some of the features, and don't forget to peek the Q&A!
 ## Window movement
 
 Jumping between windows, switching buffers attached to windows,
-changing windows layout, jump to previous lines are very important
-features. I currently rely on `ace-window` and `rotate` packages. Here
-is how I use them.
+changing windows layout, jumping to previous points are very important
+features. I currently rely on `ace-window` and `rotate` packages. 
+
+Here is how I use them.
 
 Window jumps: `M-o 2`
 
@@ -118,7 +119,7 @@ A couple of functions based on registers: `C-<f7>` and `M-<f7>`
 
 <img src="./img/top-bottom-jumps.gif" width="800">
 
-## C C++
+## Cpp
 
 Tips:
 
@@ -208,7 +209,7 @@ English/Japanese with `<f7>`
 
 <img src="./img/org-japanese.gif" width="800">
 
-# Q&A
+# Questions and Answers
 
 I find this use of Emacs very practical. In the following there is
 list of considerations and remarks that may be useful.
@@ -245,10 +246,10 @@ list of considerations and remarks that may be useful.
   built-in package manager to perform native compilation when
   installing a package.
   
-+ Do you always use Emacs insted of **IDEs**? Yes, up to now there has
-  been only one exception: Android. AOSP indexing takes a lot of time
-  (Emacs may freeze). Also, app development with Android Studio is
-  easier.
++ Do you always use Emacs instead of **IDEs**? Yes, up to now there
+  has been only one exception: Android. AOSP indexing takes a lot of
+  time (Emacs may freeze). Also, app development with Android Studio
+  is easier.
   
 + What about **LSP configuration**? I tend to rely only on LSP basic
   functions (and without changing the default keybindings). In
@@ -285,4 +286,6 @@ list of considerations and remarks that may be useful.
   every new feature should improve my workflow.
   
 + Some **keybindings** seem unnatural. That's because I use a split
-[Ergodox EZ](https://ergodox-ez.com/) with a custom layout.
+[Ergodox EZ](https://ergodox-ez.com/) with a custom layout. 
+
+
