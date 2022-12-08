@@ -1,4 +1,4 @@
-;; simple setup based on auctex
+;; auctex based setup
 
 (use-package company-math
   :after (company)
@@ -33,5 +33,5 @@
   (setq reftex-plug-into-AUCTeX t)
   )
 
-;; enable company when editing latex buffers
+;; hook company mode to latex mode
 (add-hook 'LaTeX-mode-hook 'company-mode)

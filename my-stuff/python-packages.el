@@ -1,16 +1,17 @@
 ;; set default to python3
 (setq python-shell-interpreter "python3")
 
-;; built-in utilities
+;; major mode
 (use-package python
   :ensure t)
 
-;; to install the dedicated server
+;; dedicated server
+;; prerequisite: npm
 (use-package lsp-pyright
   :ensure t
   :hook (python-mode . (lambda ()
 			 (require 'lsp-pyright)
 			 (lsp))))
 
-;; start lsp when in python mode
+;; hook lsp to python mode
 (add-hook 'python-mode-hook 'ddslsp/dariofad-Start-LSP-mode)

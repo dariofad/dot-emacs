@@ -1,24 +1,21 @@
-;; setting the environment (default options)
-;; path
+;; default environment options
 (setenv "PATH"
   (concat
    "/usr/local/go/bin" ":"
    "/home/dariofad/go/bin" ":"
    (getenv "PATH")
   )
-)
-;; exec-path
+  )
 (add-to-list 'exec-path "/usr/local/go/bin")
 (add-to-list 'exec-path "/home/dariofad/go/bin")
 
-;; client
+;; major mode
 (use-package go-mode
   :ensure t)
 
-;; from the official gopls documentation
-;; start lsp when in go mode
+;; from the official documentation
 (add-hook 'go-mode-hook #'lsp-deferred)
-;; format the file when the buffer is saved
+;; auto-format on save
 (defun lsp-go-install-save-hooks ()
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
   (add-hook 'before-save-hook #'lsp-organize-imports t t))

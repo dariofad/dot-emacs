@@ -1,4 +1,4 @@
-(message "Bootstrapping emacs")
+(message "Emacs startup")
 
 ;; reading host-name
 (setq host-name
@@ -9,30 +9,28 @@
 ;; set t_checker to 1 if EMACS_BOOTED is defined, nil otherwise
 (setq t_checker (boundp' EMACS_BOOTED))
 
-;; the following is executed only at startup
+;; cold boot
 (if (eq nil t_checker)
     (progn
-      ;; this following program performs package initialization and
-      ;; installs use-package (if not available). use-package is used
-      ;; to configure and install all the other packages (no external
-      ;; dependencies)
-      
+
       ;; init packages
       (package-initialize)
 
       ;; use ahead-of-time native compilation if available
       (setq package-native-compile t)
 
+      ;; setup archives
       (add-to-list 'package-archives
 		   '("melpa-stable" . "https://stable.melpa.org/packages/"))
       (add-to-list 'package-archives
 		   '("melpa" . "https://melpa.org/packages/"))
 
-      ;; install use-package if not available
+      ;; use-package installation
       (unless (package-installed-p 'use-package)
 	(package-refresh-contents)
 	(package-install 'use-package))
-      
+
+      ;; enable verbose mode (use-package) 
       (setq use-package-verbose t)      
       )
   )
@@ -40,13 +38,13 @@
 ;; vanilla emacs + use-package successfully bootstrapped
 (setq EMACS_BOOTED 1)   
 
-;; switch to a init helper
+;; int helper to load packages
 (load-file "~/.emacs.d/init-helper.el")
 
-(setq inhibit-startup-echo-area-message "Emacs boot terminated")
+(setq inhibit-startup-echo-area-message "Emacs started!")
 
 
-;; IGNORE the following auto-generated content
+;; AUTO-GENERATED CONTENT
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -56,11 +54,11 @@
  '(auth-source-save-behavior nil)
  '(company-show-quick-access t nil nil "Customized with use-package company")
  '(custom-enabled-themes '(tango-dark))
- '(exwm-systemtray-height 30)
  '(package-selected-packages
-   '(deno-fmt prettier-js web-mode json-mode rust-mode lsp-pyright lsp-treemacs lsp-ui lsp-mode envrc go-mode go-mode-hook rotate counsel-projectile yasnippet direnv flycheck which-key visual-regexp treemacs emacs-rotate ivy-posframe company-reftex latex-extra company-math company-auctex latex tex-site multiple-cursors jedi company-quickhelp company-box company-jedy company-jedi anaconda free-keys counsel ace-link exwm xelb use-package smex ido-vertical-mode hindent haskell-mode expand-region company ace-window))
+   '(org-variable-pitch org-bullets gif-screencast powerline mozc deno-fmt prettier-js web-mode json-mode rust-mode lsp-pyright lsp-treemacs lsp-ui lsp-mode envrc go-mode go-mode-hook rotate counsel-projectile yasnippet direnv flycheck which-key visual-regexp treemacs emacs-rotate ivy-posframe company-reftex latex-extra company-math company-auctex latex tex-site multiple-cursors jedi company-quickhelp company-box free-keys counsel ace-link use-package smex ido-vertical-mode expand-region company ace-window))
  '(safe-local-variable-values
-   '((TeX-master . main\.tex)
+   '((reftex-default-bibliography . "./bibliography.bib")
+     (TeX-master . main\.tex)
      (reftex-default-bibliography . "../../bib/biblio.bib")
      (reftex-default-bibliography . "../../../../bib/biblio.bib")
      (reftex-default-bibliography . "../../../bib/biblio.bib")

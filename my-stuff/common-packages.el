@@ -3,18 +3,18 @@
   :ensure t
   :config
 
-  ;; function to rotate windows 
+  ;; window rotation
   (defun ddrow/ROtate-Window ()
     (interactive)
     (rotate-window))
 
-  ;; function to rotate layout
+  ;; layout rotation
   (defun ddrol/ROtate-Layout ()
     (interactive)
     (rotate-layout))
   )
 
-;; ace-window (window movement)
+;; ace-window (window navigation)
 (use-package ace-window
   :ensure t
   :config
@@ -35,56 +35,56 @@
 	(?? aw-show-dispatch-help))
   "List of actions for `aw-dispatch-default'."))
 
-;; big blue letters to mark windows
+;; use big blue letters to mark windows
 (custom-set-faces
  '(aw-leading-char-face ((t (:foreground "deep sky blue" :bold t :height 3.0)))))
 
 
-;; counsel (it brings ivy and swiper as dependency)
+;; counsel (+ ivy and swiper as dependencies)
 (use-package counsel
   :ensure t
   :config
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
   (setq ivy-count-format "(%d/%d) ")
-  ;; suggest to counsel-find-file the file under cursor as first candidate 
+  ;; suggest to counsel-find-file the file at poin
   (setq counsel-find-file-at-point t))
 
-;; theme set
+;; theme
 (use-package dichromacy-theme
   :defer t
   :init (load-theme 'dichromacy t))
 
-;; to print a map of free keys
+;; print the map of free keys
 (use-package free-keys
   :ensure t)
 
-;; avy for fast switching between buffers
+;; fast transitions between buffers
 (use-package avy
   :ensure t)
 
-;; ace-link to jump quickly through documentation links
+;; jump quickly through documentation links
 (use-package ace-link
   :ensure t
   :config
   (ace-link-setup-default))
 
-;; expand-region to quickly highlight parenthesized text 
+;; highlight text in parenthesis
 (use-package expand-region
   :ensure t)
 
-;; tramp 
+;; remote connections
 (use-package tramp
   :ensure t
   :config
   (setq tramp-default-method "ssh")
   (setq tramp-chunksize 10000)
-  ;; no tramp backing up file (avoid accidental exposure of files)
+  ;; no tramp back up file (avoid accidental exposures)
   (add-to-list 'backup-directory-alist
 	       (cons tramp-file-name-regexp nil))
   )
 
-;; edit lines with repetitions quickly
+;; edit lines multiple lines simultaneously
 (use-package multiple-cursors         
   :ensure t                           
   :bind                               
@@ -94,7 +94,14 @@
   ("C-c C-<" . mc/mark-all-like-this)
   )
 
-;; to interactively build a regexp
+;; build a regexp interactively
 (use-package visual-regexp
   :ensure t
+  )
+
+;; set the modeline
+(use-package powerline
+  :ensure t
+  :config
+  (powerline-default-theme)
   )

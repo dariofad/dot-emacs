@@ -9,7 +9,7 @@
 (global-set-key (kbd "s-{") (lambda() (interactive)(shrink-window 2)))
 (global-set-key (kbd "s-}") (lambda() (interactive)(enlarge-window 2)))
 
-;; ace-window switching
+;; ace-window
 (global-set-key (kbd "M-o") 'ace-window)
 
 ;; reduce and increase font size quickly
@@ -17,17 +17,15 @@
 (global-set-key (kbd "s--") (lambda() (interactive)(text-scale-decrease 1)))
 
 ;; ivy-based interface to standard commands
-;; DISCLAIMER: not all of the following are working, it depends on
-;; what is currently installed on the host
 (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
 (global-set-key (kbd "C-s") 'swiper-isearch)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "M-y") 'counsel-yank-pop)
-(global-set-key (kbd "<f7> l") 'counsel-find-library)
-(global-set-key (kbd "<f7> i") 'counsel-info-lookup-symbol)
-(global-set-key (kbd "<f7> u") 'counsel-unicode-char)
-(global-set-key (kbd "<f7> j") 'counsel-set-variable)
+(global-set-key (kbd "<f8> l") 'counsel-find-library)
+(global-set-key (kbd "<f8> i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "<f8> u") 'counsel-unicode-char)
+(global-set-key (kbd "<f8> j") 'counsel-set-variable)
 (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
 (global-set-key (kbd "C-c v") 'ivy-push-view)
 (global-set-key (kbd "C-c V") 'ivy-pop-view)
@@ -63,4 +61,11 @@
 (global-set-key (kbd "C--") 'er/contract-region)
 
 ;; eshell
+(global-set-key (kbd "C-!") 'ddoeh/Open-Eshell-Here)
 (global-set-key (kbd "s-e") 'eshell)
+
+;; toggle mozc mode
+(global-set-key (kbd "<f7>") 'mozc-mode)
+
+;; media (gif-screencast)
+(global-set-key (kbd "M-<f8>") 'gif-screencast-start-or-stop)

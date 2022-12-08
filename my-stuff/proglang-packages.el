@@ -1,5 +1,8 @@
+;; spelling
 (use-package flycheck
   :ensure t
+  :config
+  (yas-global-mode 1)
   )
 
 ;; function templates
@@ -7,7 +10,7 @@
   :ensure t
   )
 
-;; company for autocompletion
+;; autocompletion
 (use-package company
   :ensure t
   :hook ((emacs-lisp-mode . (lambda ()
@@ -31,21 +34,21 @@
 	("C-p" . company-select-previous)
 	("C-n" . company-select-next))
   :config
-  ;; function to disable company mode for all remote buffers
+  ;; disable company mode for all remote buffers
   (defun dariofad/disable-company-mode-for-remote-buffers () 
     (when (and (fboundp 'company-mode)
 	       (file-remote-p default-directory))
       (company-mode -1)))
   
-  ;; adjust garbage collection size
+  ;; adjust garbage collection
   (setq gc-cons-threshold 100000000)
-  ;; increase the amount of data which Emacs reads from the process 
-  (setq read-process-output-max (* 1024 4096)) ;; 4mb
+  ;; increase the amount of data read by Emacs
+  (setq read-process-output-max (* 1024 4096)) ;; 4MB
   
-  ;; use icons by default
+  ;; use icons
   (setq company-format-margin-function #'company-vscode-dark-icons-margin)
   
-  ;; utility to have company support
+  ;; company support
   (use-package company-quickhelp
     :after (company)
     :ensure t
@@ -53,6 +56,7 @@
     (company-quickhelp-mode)
     :config
 
+    ;; delay
     (setq company-quickhelp-delay 0.3)
 
     ;; set darker colors
@@ -72,16 +76,15 @@
     );; package company-quickhelp
   );; package company
 
-;; I use envrc to create per project environment settings
-;; NB: requires to install direnv at system level (dependency, if
-;; missing is a problem)
+;; per-project environment settings
+;; prerequisite: direnv
 (use-package envrc
   :ensure t
   :config
   (envrc-global-mode)
   )
 
-;; function names from key prefix
+;; function names from key prefixes
 (use-package which-key
   :ensure t
   )
@@ -99,6 +102,7 @@
   (setq lsp-prefer-capf t)
   (setq lsp-completion-show-detail t)
   (setq lsp-completion-show-kind t)
+  (setq lsp-modeline-diagnostics-enable t)
   
   ;; enable the ui
   (use-package lsp-ui
@@ -118,13 +122,13 @@
     :config (lsp-treemacs-sync-mode 1)
     )
 
-  ;; utility to start lsp-server with the correct configuration
+  ;; utility to start lsp-server turning on configuration
   ;; (configuration can be customized using direnv (.envrc))
   (defun ddslsp/dariofad-Start-LSP-mode ()
     (interactive)
     (lsp)
-    (yas-global-mode)
     (which-key-mode 1)
+    (yas-minor-mode-on)
     )
 
   ;; configure unstable clients (deno)
@@ -137,13 +141,8 @@
 
   );; package lsp-mode
 
-;; find symbols in workspace
+;; find symbols in a workspace
 (use-package counsel-projectile
   :ensure t
   )
 (define-key projectile-mode-map (kbd "M-n") 'projectile-command-map)
-
-
-
-
-

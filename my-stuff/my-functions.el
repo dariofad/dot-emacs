@@ -4,16 +4,16 @@
   (kill-buffer (current-buffer)))
 (global-set-key (kbd "C-x k") 'ddkcb/Kill-Curr-Buffer)
 
-;; kill current word (inner-to-word cursor pointing)
+;; kill current word
 (defun ddkiw/Kill-Inner-Word ()
-  "Kills the entire word your cursor is in."
+  "Kill the word where the point is located."
   (interactive)
   (forward-char 1)
   (backward-word)
   (kill-word 1))
 (global-set-key (kbd "C-c w k") 'ddkiw/Kill-Inner-Word)
 
-;; copy current line without killing it
+;; insert line in the ring buffer
 (defun ddcwl/Copy-Whole-Line ()
   (interactive)
   (save-excursion
@@ -23,7 +23,7 @@
       (point-at-eol)))))
 (global-set-key (kbd "C-c w l") 'ddcwl/Copy-Whole-Line)
 
-;; copy current line from point to the endo of the line
+;; copy the current line from the point to the end
 (defun ddcteol/Copy-To-End-Of-Line ()
   (interactive)
   (save-excursion
@@ -33,7 +33,7 @@
       (point-at-eol)))))
 (global-set-key (kbd "C-c w e") 'ddcteol/Copy-To-End-Of-Line)
 
-;; change focus to new window when there is an horizonal split
+;; set the focus to the new window after an horizonal split
 (defun ddsfh/Split-and-Follow-Horizontally ()
   (interactive)
   (split-window-below)
@@ -41,7 +41,7 @@
   (other-window 1))
 (global-set-key (kbd "C-x 2") 'ddsfh/Split-and-Follow-Horizontally)
 
-;; change focus to new window when there is a vertical split
+;; set the focus to the new window after a vertical split
 (defun ddsfv/Split-and-Follow-Vertically ()
   (interactive)
   (split-window-right)
@@ -54,24 +54,6 @@
   (interactive)
   (setq kill-ring nil)
   (message "kill-ring cleared")
-  )
-
-;; start redshift when available
-(defun ddsred/Start-REDshift ()
-  (interactive)
-  (call-process-shell-command "redshift -O 5000 & disown $(ps -aux | grep -i 'redshift'| grep -v 'grep' | awk '{ print $2 }')" nil 0)
-  )
-
-;; kill redshift
-(defun ddkred/Kill-REDshift ()
-  (interactive)
-  (call-process-shell-command "kill -9 $(ps -aux | grep -i 'redshift'| grep -v 'grep' | awk '{ print $2 }') & redshift -x")
-  )
-
-;; kill gnome-panel
-(defun ddkgp/Kill-Gnome-Panel ()
-  (interactive)
-  (call-process-shell-command "kill -9 $(ps -aux | grep -i 'gnome-panel' | grep -v 'grep' | awk '{ print $2 }')" nil 0)
   )
 
 ;; kill slack
@@ -98,6 +80,7 @@
   (call-process-shell-command "kill -9 $(ps -aux | grep -i 'zoom' | grep -v 'grep' | awk '{ print $2 }')" nil 0)
   )
 
+;; start vpn connection
 (defun ddsvpn/Start-VPN ()
   (interactive)
   (let ((default_vpn "unibgonly"))
@@ -114,7 +97,7 @@
 	)))
   )
 
-;; stop and disable a vpn connection with openvpn
+;; stop and disable vpn connection
 (defun ddkvpn/Kill-VPN ()
   (interactive)
   (let ((default_vpn "unibgonly"))
@@ -154,16 +137,28 @@
     (rename-buffer (concat "*eshell: " name "*"))
 
     (insert (concat "ls"))
-    (eshell-send-input)))
+    (eshell-send-input))
+  )
 
-;; globally defined
-(global-set-key (kbd "C-!") 'ddoeh/Open-Eshell-Here)
-
-;; function to close eshell quickly from eshell
+;; quickly close eshell
 (defun eshell/x ()
   (insert "exit")
   (eshell-send-input)
   (delete-window))
+
+;; top-to-bottom jump
+(defun ddttbj/Top-To-Bottom-Jump ()
+  (interactive)
+  (point-to-register ?t)
+  (jump-to-register ?b))
+(global-set-key (kbd "C-<f7>") 'ddttbj/Top-To-Bottom-Jump)
+
+;; bottom-to-top jump
+(defun ddbttj/Bottom-To-Top-Jump ()
+  (interactive)  
+  (point-to-register ?b)
+  (jump-to-register ?t))
+(global-set-key (kbd "M-<f7>") 'ddbttj/Bottom-To-Top-Jump)
 
 ;; enable minor mode if finename matches regexp
 ;; `binding` is a cons cell (regexp . minor-mode)
@@ -172,3 +167,20 @@
   (if (buffer-file-name)
       (if (string-match (car new-binding) buffer-file-name)
 	  (funcall (cdr new-binding)))))
+
+;; placeholder to execute a function by name
+(defvar callable-function-placeholder "initialize function name"
+  "Name of a function callable with dd/ utility.
+   Use only functions with 0 arguments.")
+
+(defun ddscfn/Set-Callable-Function-Name ()
+  "Sets the value of the variable callable-function-placeholder."
+  (interactive)
+  (setq callable-function-placeholder
+	(read-from-minibuffer "Set callable-function-name: " callable-function-placeholder)))
+
+(defun ddccf/Call-Callable-Function ()
+  "Calls the function name saved in the callable-function-placeholder variable."
+  (interactive)
+  (funcall (intern callable-function-placeholder)))
+(global-set-key (kbd "C-~") 'ddccf/Call-Callable-Function)

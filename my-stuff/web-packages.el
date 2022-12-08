@@ -1,4 +1,4 @@
-;; major mode for editing web templates and scripts
+;; major mode (web templates and scripts)
 (use-package web-mode
   :ensure t
   :mode (("\\.js\\'" . web-mode)
@@ -18,7 +18,7 @@
 (use-package deno-fmt
   :ensure t
   :config
-  ;; auto formatting for the following file extensions
+  ;; enable auto-format for the following file extensions
   (add-hook 'web-mode-hook #'(lambda ()
 			       (ddemm/Enable-Minor-Mode
 				'("\\.jsx?\\'" . deno-fmt-mode))
@@ -26,5 +26,5 @@
 				'("\\.tsx?\\'" . deno-fmt-mode))))
   )
 
-;; use lsp when in web mode
+;; hook lsp to web mode
 (add-hook 'web-mode-hook 'ddslsp/dariofad-Start-LSP-mode)

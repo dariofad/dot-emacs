@@ -6,3 +6,4 @@ alias ffr find-file-read-only	$1
 alias gg google-chrome --new-window $1
 alias gi google-chrome --new-window --incognito $1
 alias gtm git commit -m $1
+alias ef disown -h emacsclient -c $1

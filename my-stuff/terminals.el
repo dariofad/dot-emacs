@@ -4,18 +4,18 @@
 ;; shell prompt regexp
 (setq shell-prompt-pattern '"^[^#$%>\n]*~?[#$%>]")
 
-;; disable company mode in shell mode and eshell mode
+;; disable company mode when in shell mode and in eshell mode
 (add-hook 'shell-mode-hook (lambda () (company-mode -1)) 'append)
 
-;; set comint faces for shell mode (color highlight)
+;; set comint faces for shell mode (colors)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
 
-;; always open buffer with shell in their name in current window
+;; open buffers in the current window
 (add-to-list 'display-buffer-alist
              `(,(regexp-quote "*shell") display-buffer-same-window))
 
-;; eshell configuration
+;; emacs shell
 (use-package eshell
   :ensure t
   :init

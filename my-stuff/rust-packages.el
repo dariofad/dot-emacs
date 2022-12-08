@@ -1,11 +1,11 @@
-;; editing rust files
+;; major mode
 (use-package rust-mode
   :ensure t
   :config
 
-  ;; enable auto formatting on save
+  ;; auto-format on save
   (setq rust-format-on-save t)
   )
 
-;; start lsp when in rust mode
+;; hook lsp to rust mode
 (add-hook 'rust-mode-hook #'lsp-deferred)

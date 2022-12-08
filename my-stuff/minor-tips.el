@@ -1,6 +1,7 @@
-;; disable bell sound
+;; disable the bell sound
 (setq bell-volume 0)
-;; disable subtly flash in the modeline when something is wrong
+
+;; disable the flash in the modeline when something is wrong
 (setq ring-bell-function
       (lambda ()
         (let ((orig-fg (face-foreground 'mode-line)))
@@ -13,17 +14,11 @@
 (add-to-list 'display-buffer-alist
              '("*Help*" display-buffer-same-window))
 
-;; turn on absolute line numbers
+;; use absolute line numbers
 (global-linum-mode t)
 
 ;; enable camel-case inner-to-word movement
 (global-subword-mode 1)
-
-;; display basic info in modeline
-(display-battery-mode 1)
-(setq display-time-default-load-average nil)
-(setq display-time-24hr-format 1)
-(display-time-mode 1)
 
 ;; disable company mode for remote buffers
 (add-hook 'eval-after-load 'dariofad/disable-company-mode-for-remote-buffers)

@@ -1,3 +1,3 @@
-;; major mode for editing JSON files
+;; major mode
 (use-package json-mode
   :ensure t)
