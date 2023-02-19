@@ -50,11 +50,6 @@
   ;; suggest to counsel-find-file the file at poin
   (setq counsel-find-file-at-point t))
 
-;; theme
-(use-package dichromacy-theme
-  :defer t
-  :init (load-theme 'dichromacy t))
-
 ;; print the map of free keys
 (use-package free-keys
   :ensure t)
@@ -105,3 +100,9 @@
   :config
   (powerline-default-theme)
   )
+
+;; folding and unfolding regions
+(use-package vimish-fold
+  :ensure t
+  :config
+  (vimish-fold-global-mode 1))

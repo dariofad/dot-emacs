@@ -1,9 +1,6 @@
 ;; set emacs default interactive shell
 (setq explicit-shell-file-name "/bin/bash")
 
-;; shell prompt regexp
-(setq shell-prompt-pattern '"^[^#$%>\n]*~?[#$%>]")
-
 ;; disable company mode when in shell mode and in eshell mode
 (add-hook 'shell-mode-hook (lambda () (company-mode -1)) 'append)
 

@@ -32,3 +32,8 @@
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
+
+;; set default font
+(set-face-attribute 'default nil :font "Hack-12")
+(set-face-attribute 'variable-pitch nil :font "Hack-12")
+(set-face-attribute 'fixed-pitch nil :font "Inconsolata for Powerline-14")

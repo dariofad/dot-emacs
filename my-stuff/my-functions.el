@@ -173,14 +173,86 @@
   "Name of a function callable with dd/ utility.
    Use only functions with 0 arguments.")
 
-(defun ddscfn/Set-Callable-Function-Name ()
-  "Sets the value of the variable callable-function-placeholder."
+(defun ddschn/Set-Callable-Hook-Name ()
+  "Sets the value of the variable callable-hook-placeholder."
   (interactive)
-  (setq callable-function-placeholder
-	(read-from-minibuffer "Set callable-function-name: " callable-function-placeholder)))
+  (setq callable-hook-placeholder
+	(ivy-read "Set callable hook name: " obarray)))
 
-(defun ddccf/Call-Callable-Function ()
-  "Calls the function name saved in the callable-function-placeholder variable."
+(defun ddcch/Call-Callable-Hook ()
+  "Calls the function name saved in the callable-hook-placeholder variable."
   (interactive)
-  (funcall (intern callable-function-placeholder)))
-(global-set-key (kbd "C-~") 'ddccf/Call-Callable-Function)
+  (funcall (intern callable-hook-placeholder)))
+(global-set-key (kbd "C-~") 'ddcch/Call-Callable-Hook)
+
+(defun ddvf/DDVimish-Fold ()
+  "Do vimish-fold for all the regions containing the meta
+attributes (e.g., '#+attr:...') in the current buffer. Folds only
+regions longer than 1 line.
+
+Run vimish-fold-delete-all to remove folding."
+  (interactive)
+  (goto-char (point-min))
+  ;; search for the beginning of a region to be vimish-fold(ed)
+  (while (re-search-forward "^[ ]*#\+[a-z]*.*:.*$"
+			    nil
+			    t)
+    ;; detect the end of the region, do vimish-fold, go ahead scanning
+    (progn
+      (beginning-of-line)
+      (set-mark (point))
+      (end-of-line)
+      (beginning-of-line)
+      (next-line) ;; terminates gracefully when eobp is reached (no
+		  ;; more need to vimish-fold)
+      (let* ((vimished-region-len 1))
+	(while (if (not (eobp))
+		   (string-match "^[ ]*#\+[a-z]*.*:.*$" (thing-at-point 'line t))
+		 nil)
+	  (next-line)
+	  (beginning-of-line)
+	  (cl-incf vimished-region-len)
+	  )
+	;; vimish-fold the region only when there is more than 1 line,
+	;; go ahead scanning otherwise
+	(if (> vimished-region-len 1)
+	    (progn
+	      ;; do not fold last line, which could be used to open a
+	      ;; source block
+	      (previous-line)
+	      (end-of-line)
+	      ;; vimish fold
+	      (vimish-fold (mark) (point)))
+	  (deactivate-mark))
+	(end-of-line)
+	(next-line)	
+	)
+      )
+    )
+  )
+
+(defun ddbepdf/Beamer-Export-to-PDF()
+  "Insert the beamer export template in the current org buffer and export to pdf.
+ The function is particularly useful to avoid visual problems with org-latex-preview,
+ which keeps rendering math equations with preamble command (fonts, hyperref setup...)
+
+Where is my template? ~/git/notes/lapec/slide_template.org
+"
+  (interactive)
+  (let ((l_checker (boundp' EMACS_PACKAGES_LOADED)))
+    (progn
+      ;; do not execute this function at load time for the current buffer
+      (if (not (eq nil l_checker))
+	  (save-excursion
+	    (goto-line 0)
+	    (setq file-len (nth 1 (insert-file-contents "~/git/notes/lapec/slide_template.org")))
+	    ;; remove the insertion even when compilation fails
+	    (ignore-errors
+	      (org-beamer-export-to-pdf))
+	    (forward-char file-len)
+	    (set-mark (point))
+	    (goto-line 0)
+	    (delete-active-region)))
+      )
+    )
+  )

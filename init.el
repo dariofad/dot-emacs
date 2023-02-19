@@ -41,6 +41,10 @@
 ;; int helper to load packages
 (load-file "~/.emacs.d/init-helper.el")
 
+;; all the packages have been loaded, and the init procedure is
+;; complete
+(setq EMACS_PACKAGES_LOADED 1)
+
 (setq inhibit-startup-echo-area-message "Emacs started!")
 
 
@@ -53,9 +57,9 @@
  '(add-hook 'cmake-mode-hook t)
  '(auth-source-save-behavior nil)
  '(company-show-quick-access t nil nil "Customized with use-package company")
- '(custom-enabled-themes '(tango-dark))
+ '(custom-enabled-themes '(wombat))
  '(package-selected-packages
-   '(org-variable-pitch org-bullets gif-screencast powerline mozc deno-fmt prettier-js web-mode json-mode rust-mode lsp-pyright lsp-treemacs lsp-ui lsp-mode envrc go-mode go-mode-hook rotate counsel-projectile yasnippet direnv flycheck which-key visual-regexp treemacs emacs-rotate ivy-posframe company-reftex latex-extra company-math company-auctex latex tex-site multiple-cursors jedi company-quickhelp company-box free-keys counsel ace-link use-package smex ido-vertical-mode expand-region company ace-window))
+   '(visual-fill-column valign org-present org-variable-pitch org-bullets gif-screencast powerline mozc deno-fmt prettier-js web-mode json-mode rust-mode lsp-pyright lsp-treemacs lsp-ui lsp-mode envrc go-mode go-mode-hook rotate counsel-projectile yasnippet direnv flycheck which-key visual-regexp treemacs emacs-rotate ivy-posframe company-reftex latex-extra company-math company-auctex latex tex-site multiple-cursors jedi company-quickhelp company-box free-keys counsel ace-link use-package smex ido-vertical-mode expand-region company ace-window))
  '(safe-local-variable-values
    '((reftex-default-bibliography . "./bibliography.bib")
      (TeX-master . main\.tex)
@@ -84,5 +88,11 @@
  '(company-tooltip-common-selection ((t (:hinerit))))
  '(company-tooltip-scrollbar-thumb ((t (:background "white"))))
  '(company-tooltip-scrollbar-track ((t (:background "yellow"))))
- '(company-tooltip-selection ((t (:backgroud "red" :foreground "red")))))
+ '(company-tooltip-selection ((t (:backgroud "red" :foreground "red"))))
+ '(fixed-pitch ((t (:family "Inconsolata for Powerline" :slant normal :weight normal :height 120 :width normal))))
+ '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
+ '(org-level-2 ((t (:inherit outline-2 :height 1.15))))
+ '(org-level-3 ((t (:inherit outline-3 :height 1.1))))
+ '(org-level-4 ((t (:inherit outline-4 :height 1.05))))
+ '(variable-pitch ((t (:family "Hack" :height 120 :weight light)))))
 (put 'upcase-region 'disabled nil)
