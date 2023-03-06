@@ -4,7 +4,7 @@ My `.emacs.d` configuration files.
 
 TLDR:
 
-+ little Elisp
++ little Elisp knowledge required
 + `use-package` macros and only packages from melpa
 + Emacs daemon (server) on the background
 + LSP (Bash, C/C++, Go, Javascript, Python, Rust, Typescript)
@@ -52,47 +52,68 @@ new features are introduced only if when they are really needed.
 # How I use Emacs
 
 Everyday, I **start Emacs** on the background right after boot typing
-`start-emacs` in the terminal (see [here](#bash-commands)). On my
-machine this takes ~2/3 seconds.
+`sem` in the terminal (see [here](#bash-functons)). On my machine this
+takes ~2/3 seconds.
 
-There are three options to **edit a file**:
+There are two options to edit a file:
 
-+ `et <PATH_NAME>` to open the file with Emacs in the current terminal
-  window,
-+ `ef <PATH_NAME>` to open the file in a new Emacs frame,
-+ `efs <PATH_NAME>` to open the file in a new Emacs frame and closing
-  the terminal window.
++ `sem <PATH_NAME>` to open the file with Emacs in a new frame,
++ `semt <PATH_NAME>` to open the file in with Emacs in the terminal window.
 
-To **stop Emacs** from running in the background, I run the
-`kill-emacs` command.
+To **stop Emacs** from running in the background, I run `kim`.
   
-There are two options to **update Emacs configuration**:
+There are ways I update my Emacs configuration:
 
 1. if it's just something I want to tweak right on the spot, I open a
-  new buffer, type some Elisp and then call `eval-region`. These are
-  modifications that do not persist with a restart of the daemon,
+   new buffer, type some Elisp and then call `eval-region`. These are
+   modifications that do not persist with a restart of the daemon,
 2. if it's something more complex, I edit and save the dotfiles, then
-   restart the daemon running with `kill-emacs; start-emacs`.
+   restart the daemon running with `kim; sem`.
   
-## Bash commands
+## Bash functions
 
-Add the following to your `.bashrc`
+Add the following at the end of your `.bashrc`
 
 ```bash
-# start the Emacs daemon
-alias start-emacs='emacs --daemon'
+# start emacs daemon
+sem_start(){
+    local sem_echo=$(emacsclient -a false -e 't' 2>/dev/null)
+    if [[ $sem_echo != "t" ]]; then
+		# start emacs daemon
+		$(emacs --daemon)
+		local sem_initialized=1
+    fi
+    if [ -z $sem_initialized ]; then
+		if [[ $# -eq 0 ]] ; then
+			echo "serving"
+		fi
+	fi
+}
 
-# open Emacs in the Terminal
-et () { emacsclient -nw "$@"; }
+# start emacs daemon and open filename if argument is provided
+sem(){
+	if [[ $# -eq 0 ]] ; then
+		sem_start
+	else
+		sem_start "silence"
+		emacsclient -c $1 & disown
+	fi
+}
 
-# open a new Emacs frame
-ef () { emacsclient -c "$@" & disown; }
+# start emacs daemon and open filename in the terminal window if argument is provided
+semt(){
+	if [[ $# -eq 0 ]] ; then
+		sem_start
+	else
+		sem_start "silence"
+		emacsclient -nw $1
+	fi
+}
 
-# open a new Emacs frame, set Emacs fullscreen, then close the current terminal
-efs () { emacsclient -F "'(fullscreen . maximized)" -c "$@" & disown; exit;}
-
-# stop the Emacs daemon
-alias kill-emacs='emacsclient -e "(kill-emacs)"'
+# kill emacs daemon
+kim(){
+	emacsclient -e "(kill-emacs)"
+}
 ```
 
 # Features
@@ -211,8 +232,8 @@ English/Japanese with `<f7>`
 
 # Questions and Answers
 
-I find this use of Emacs very practical. In the following there is
-list of considerations and remarks that may be useful.
+I find this setup very practical. In the following there is list of
+considerations and remarks that may be useful.
 
 + How much **time** does it take to get used to Emacs? If you are
   thinking about getting started with Emacs, don't worry too much
@@ -282,10 +303,7 @@ list of considerations and remarks that may be useful.
 + **Updates**? I plan to update this public version of the
   configuration files from time to time.  There are many packages that
   I would like to use in the future (Magit just to mention one), but
-  there is no reason to rush and install them now. I set the rule that
-  every new feature should improve my workflow.
+  there is no reason to rush and install them now.
   
 + Some **keybindings** seem unnatural. That's because I use a split
 [Ergodox EZ](https://ergodox-ez.com/) with a custom layout. 
-
-

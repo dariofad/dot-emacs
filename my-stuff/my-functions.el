@@ -56,6 +56,25 @@
   (message "kill-ring cleared")
   )
 
+;; shadow bash history
+(defun ddsbh/Shadow-Bash-History ()
+  (interactive)
+  (call-process-shell-command "mv ~/.bash_history ~/.bash_history_s; touch ~./bash_history" nil 0)  
+  )
+
+;; recover bash history
+(defun ddrbh/Recover-Bash-History ()
+  (interactive)
+  (call-process-shell-command "mv ~/.bash_history_s ~/.bash_history" nil 0)  
+  )
+
+;; clean environment
+(defun ddcenv/Clean-ENVironment()
+  (interactive)
+  (ddckr/Clear-Kill-Ring)
+  (ddsbh/Shadow-Bash-History)
+  )
+
 ;; kill slack
 (defun ddksla/Kill-SLAck ()
   (interactive)
@@ -117,7 +136,6 @@
 ;; kill all messaging apps
 (defun ddkama/Kill-All-Messaging-Apps()
   (interactive)
-  (ddckr/Clear-Kill-Ring)
   (ddksky/Kill-SKYpe)
   (ddksla/Kill-SLAck)
   (ddktea/Kill-microsoft-TEAms)
