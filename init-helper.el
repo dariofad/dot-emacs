@@ -14,6 +14,9 @@
 (load-file "~/.emacs.d/my-stuff/c-cpp-packages.el")
 (load-file "~/.emacs.d/my-stuff/bash-packages.el")
 
+;; git
+(load-file "~/.emacs.d/my-stuff/git-packages.el")
+
 ;; terminal and minor tips
 (load-file "~/.emacs.d/my-stuff/terminals.el")
 (load-file "~/.emacs.d/my-stuff/minor-tips.el")
@@ -26,3 +29,4 @@
 
 ;; global key bindings
 (load-file "~/.emacs.d/my-stuff/global-keybindings.el")
+

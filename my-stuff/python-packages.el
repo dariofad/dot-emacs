@@ -15,3 +15,21 @@
 
 ;; hook lsp to python mode
 (add-hook 'python-mode-hook 'ddslsp/dariofad-Start-LSP-mode)
+
+;; auto-sort-imports on save
+;; prerequisite: isort (installed globally with pip)
+(defun dd-lsp-py-isort-buffer ()
+  (when (and (executable-find "isort") buffer-file-name)
+    (call-process "isort" nil nil nil "-i" buffer-file-name)))
+(add-hook 'python-mode-hook
+          (lambda ()
+            (add-hook 'after-save-hook #'dd-lsp-py-isort-buffer nil 'local)))
+
+;; auto-format on save
+;; prerequisite: yapf (installed globally with pip)
+(defun dd-lsp-py-format-buffer ()
+  (when (and (executable-find "yapf") buffer-file-name)
+    (call-process "yapf" nil nil nil "-i" buffer-file-name)))
+(add-hook 'python-mode-hook
+          (lambda ()
+            (add-hook 'after-save-hook #'dd-lsp-py-format-buffer nil 'local)))

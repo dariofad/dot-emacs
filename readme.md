@@ -180,7 +180,9 @@ Tips:
 Tips:
 
 + Install `direnv` to your host (so that you can use virtual environments)
-+ Add an `.envrc` to your project to use a python layout
++ Add an `.envrc` to your project and use a python layout
++ Install `isort` and `yapf` with `pip` to automatically sort import
+  definitions and format code
 + Open a `.py` file; `lsp-pyright` automatically installs the language
   server if not available (this is currently done via Node.js)
 + Look [here](https://github.com/purcell/envrc) if you need to work
@@ -258,7 +260,7 @@ considerations and remarks that may be useful.
 
 + Do you only use packages from **melpa** and melpa-stable? Yes. When
   I work on a new machine (or a VM) the setup boils down to creating a
-  symbolic link to my dotfiles and then run the command `start-emacs`.
+  symbolic link to my dotfiles and then run the command `sem`.
   
 + Why `package-native-compile`? Coding inside a VM with `lsp` is a bit
   laggy (especially with Rust). Compiling and installing Emacs with
@@ -273,7 +275,7 @@ considerations and remarks that may be useful.
   is easier.
   
 + What about **LSP configuration**? I tend to rely only on LSP basic
-  functions (and without changing the default keybindings). In
+  functions (again, without changing the default keybindings). In
   general, I think that language-specific command line tools are more
   convenient when there is the need to trace, inspect or debug a
   project. These tools can be neatly arranged into Makefiles recipes,
@@ -290,20 +292,21 @@ considerations and remarks that may be useful.
   be an **EXWM** user. The daily experience was incredible, but from
   time to time it required to stop my activies, making me feel a bit
   unproductive. I no longer have the same integration I had with EXWM,
-  but in case of problem (or when Emacs freezes), I can just kill and
-  restart the server instead of the whole session.
+  but in case of problem (or when Emacs freezes), I can just do a
+  `kim; sem` to kill and restart the server instead of the whole
+  session.
 
 + Some **commands** do not work. There are Emacs packages that rely on
   external binaries that need to be available on the host (e.g.,
   direnv). In these cases, I just ensure there are no errors at boot
   time (Emacs installation or startup must not fail even when a binary
-  isn't available). You can find the relevant `prerequisites` in the
+  isn't available). You can find the relevant `prerequisite(s)` in the
   comments.
 
 + **Updates**? I plan to update this public version of the
   configuration files from time to time.  There are many packages that
-  I would like to use in the future (Magit just to mention one), but
-  there is no reason to rush and install them now.
+  I would like to use in the future, but there is no reason to rush
+  and install them now.
   
 + Some **keybindings** seem unnatural. That's because I use a split
 [Ergodox EZ](https://ergodox-ez.com/) with a custom layout. 
