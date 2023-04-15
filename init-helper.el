@@ -3,16 +3,17 @@
 (load-file "~/.emacs.d/my-stuff/common-packages.el")
 
 ;; programming languages (with lsp)
-(load-file "~/.emacs.d/my-stuff/proglang-packages.el")
-(load-file "~/.emacs.d/my-stuff/python-packages.el")
+(load-file "~/.emacs.d/my-stuff/bash-packages.el")
+(load-file "~/.emacs.d/my-stuff/c-cpp-packages.el")
+(load-file "~/.emacs.d/my-stuff/elisp-packages.el")
 (load-file "~/.emacs.d/my-stuff/golang-packages.el")
-(load-file "~/.emacs.d/my-stuff/rust-packages.el")
+(load-file "~/.emacs.d/my-stuff/json-packages.el")
 (load-file "~/.emacs.d/my-stuff/latex-packages.el")
 (load-file "~/.emacs.d/my-stuff/org-mode-packages.el")
-(load-file "~/.emacs.d/my-stuff/json-packages.el")
+(load-file "~/.emacs.d/my-stuff/proglang-packages.el")
+(load-file "~/.emacs.d/my-stuff/python-packages.el")
+(load-file "~/.emacs.d/my-stuff/rust-packages.el")
 (load-file "~/.emacs.d/my-stuff/web-packages.el")
-(load-file "~/.emacs.d/my-stuff/c-cpp-packages.el")
-(load-file "~/.emacs.d/my-stuff/bash-packages.el")
 
 ;; git
 (load-file "~/.emacs.d/my-stuff/git-packages.el")

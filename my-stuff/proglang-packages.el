@@ -103,6 +103,10 @@
   (setq lsp-completion-show-detail t)
   (setq lsp-completion-show-kind t)
   (setq lsp-modeline-diagnostics-enable t)
+
+  ;; revert any buffer associated with a file that changes on disk
+  ;; (useful with formatters and/or symbolic links)
+  (global-auto-revert-mode 1)
   
   ;; enable the ui
   (use-package lsp-ui
