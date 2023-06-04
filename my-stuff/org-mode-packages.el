@@ -8,10 +8,11 @@
   (setq org-startup-indented t)  
   ;; customize headline height
   (custom-set-faces
-   '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
-   '(org-level-2 ((t (:inherit outline-2 :height 1.15))))
-   '(org-level-3 ((t (:inherit outline-3 :height 1.10))))
-   '(org-level-4 ((t (:inherit outline-4 :height 1.05)))))
+   '(org-level-1 ((t (:inherit outline-1 :height 1.20))))
+   '(org-level-2 ((t (:inherit outline-2 :height 1.18))))
+   '(org-level-3 ((t (:inherit outline-3 :height 1.16))))
+   '(org-level-4 ((t (:inherit outline-4 :height 1.14))))
+   '(org-level-5 ((t (:inherit outline-5 :height 1.12)))))
   ;; suppress html validation link
   (setq org-html-validation-link nil)
   ;; larger latex formulas in preview mode
@@ -24,16 +25,30 @@
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
-     (python . t)))
-  )
+     (python . t))))
+
+(use-package org-roam
+  :ensure t
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (org-roam-directory "~/git/notes/orgroam")
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+	 ("C-c n f" . org-roam-node-find)
+	 ("C-c n i" . org-roam-node-insert)
+	 :map org-mode-map
+	 ("C-M-i" . completion-at-point))
+  :config
+  (org-roam-setup)
+  (setq org-startup-with-latex-preview t)
+  (setq org-startup-with-inline-images t))
 
 ;; bullets
 (use-package org-bullets
   :ensure t
   :after org
   :config
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-  )
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 ;; pitch-mode
 (use-package org-variable-pitch

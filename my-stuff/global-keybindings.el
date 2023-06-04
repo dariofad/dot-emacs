@@ -49,6 +49,9 @@
 (global-set-key (kbd "C-c F") 'counsel-org-file)
 (global-set-key (kbd "C-^") 'completion-at-point)
 
+;; helpful
+(global-set-key (kbd "C-c C-d") #'helpful-at-point)
+
 ;; avy
 (global-set-key (kbd "C-'") 'avy-goto-char)
 (global-set-key (kbd "C-:") 'avy-goto-char-2)
@@ -65,7 +68,7 @@
 (global-set-key (kbd "s-e") 'eshell)
 
 ;; toggle mozc mode
-(global-set-key (kbd "<f7>") 'mozc-mode)
+(global-set-key (kbd "<f7>") 'dd/toggle-mozc-mode)
 
 ;; media (gif-screencast)
 (global-set-key (kbd "M-<f8>") 'gif-screencast-start-or-stop)

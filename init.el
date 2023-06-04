@@ -59,7 +59,7 @@
  '(company-show-quick-access t nil nil "Customized with use-package company")
  '(custom-enabled-themes '(wombat))
  '(package-selected-packages
-   '(paredit magit visual-fill-column valign org-present org-variable-pitch org-bullets gif-screencast powerline mozc deno-fmt prettier-js web-mode json-mode rust-mode lsp-pyright lsp-treemacs lsp-ui lsp-mode envrc go-mode go-mode-hook rotate counsel-projectile yasnippet direnv flycheck which-key visual-regexp treemacs emacs-rotate ivy-posframe company-reftex latex-extra company-math company-auctex latex tex-site multiple-cursors jedi company-quickhelp company-box free-keys counsel ace-link use-package smex ido-vertical-mode expand-region company ace-window))
+   '(org-roam paredit magit visual-fill-column valign org-present org-variable-pitch org-bullets gif-screencast powerline mozc deno-fmt prettier-js web-mode json-mode rust-mode lsp-pyright lsp-treemacs lsp-ui lsp-mode envrc go-mode go-mode-hook rotate counsel-projectile yasnippet direnv flycheck which-key visual-regexp treemacs emacs-rotate ivy-posframe company-reftex latex-extra company-math company-auctex latex tex-site multiple-cursors jedi company-quickhelp company-box free-keys counsel ace-link use-package smex ido-vertical-mode expand-region company ace-window))
  '(safe-local-variable-values
    '((reftex-default-bibliography . "./bibliography.bib")
      (TeX-master . main\.tex)

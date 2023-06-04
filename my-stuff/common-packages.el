@@ -50,6 +50,11 @@
   ;; suggest to counsel-find-file the file at poin
   (setq counsel-find-file-at-point t))
 
+;; quickly find info on functions and variables
+(use-package helpful
+  :ensure t
+  :after counsel)
+
 ;; print the map of free keys
 (use-package free-keys
   :ensure t)

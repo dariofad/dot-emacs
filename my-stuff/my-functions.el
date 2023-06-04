@@ -254,7 +254,7 @@ Run vimish-fold-delete-all to remove folding."
  The function is particularly useful to avoid visual problems with org-latex-preview,
  which keeps rendering math equations with preamble command (fonts, hyperref setup...)
 
-Where is my template? ~/git/notes/lapec/slide_template.org
+Where is my template? ~/git/notes/comp/slide_template.org
 "
   (interactive)
   (let ((l_checker (boundp' EMACS_PACKAGES_LOADED)))
@@ -263,7 +263,7 @@ Where is my template? ~/git/notes/lapec/slide_template.org
       (if (not (eq nil l_checker))
 	  (save-excursion
 	    (goto-line 0)
-	    (setq file-len (nth 1 (insert-file-contents "~/git/notes/lapec/slide_template.org")))
+	    (setq file-len (nth 1 (insert-file-contents "~/git/notes/comp/slide_template.org")))
 	    ;; remove the insertion even when compilation fails
 	    (ignore-errors
 	      (org-beamer-export-to-pdf))
@@ -274,3 +274,11 @@ Where is my template? ~/git/notes/lapec/slide_template.org
       )
     )
   )
+
+(setq dd-cursor-color "#808080")
+(defun dd/toggle-cursor-color ()
+  (interactive)
+  (if (string= dd-cursor-color "#808080")
+      (setq dd-cursor-color "#FF0000")
+    (setq dd-cursor-color "#808080"))
+  (set-cursor-color dd-cursor-color))
