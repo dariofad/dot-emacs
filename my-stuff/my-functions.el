@@ -279,6 +279,6 @@ Where is my template? ~/git/notes/comp/slide_template.org
 (defun dd/toggle-cursor-color ()
   (interactive)
   (if (string= dd-cursor-color "#808080")
-      (setq dd-cursor-color "#FF0000")
+      (setq dd-cursor-color "#52D017")
     (setq dd-cursor-color "#808080"))
   (set-cursor-color dd-cursor-color))

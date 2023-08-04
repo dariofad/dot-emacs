@@ -60,7 +60,7 @@ There are two options to edit a file:
 + `sem <PATH_NAME>` to open the file with Emacs in a new frame,
 + `semt <PATH_NAME>` to open the file in with Emacs in the terminal window.
 
-To **stop Emacs** from running in the background, I run `kim`.
+To **stop Emacs** from running in the background, I run `kem`.
   
 There are ways I update my Emacs configuration:
 
@@ -111,7 +111,7 @@ semt(){
 }
 
 # kill emacs daemon
-kim(){
+kem(){
 	emacsclient -e "(kill-emacs)"
 }
 ```
